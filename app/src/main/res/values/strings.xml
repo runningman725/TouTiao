@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TouTiaoTest</string>
+    <string name="title_activity_web_show">WebShowActivity</string>
+</resources>
