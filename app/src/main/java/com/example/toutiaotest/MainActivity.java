@@ -2,6 +2,7 @@ package com.example.toutiaotest;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +29,38 @@ public class MainActivity extends AppCompatActivity {
 
     public String Url = "http://v.juhe.cn/toutiao/index?type=top&key=30af0fb406d2655e39d3ff8a119368eb";
     private ListView lvTouTiao;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lvTouTiao = (ListView) findViewById(R.id.tt_list_view);
-        new TouTiaoAsyncTask().execute(Url);;
+        new TouTiaoAsyncTask().execute(Url);
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final List<TouTiao> touTiaos=showTouTiao(Url);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                TouTiaoAdapter adapter=new TouTiaoAdapter(MainActivity.this,touTiaos,lvTouTiao);
+                                lvTouTiao.setAdapter(adapter);
+                                swipeRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+
+
+            }
+        });
+
 
 
     }
@@ -85,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected List<TouTiao> doInBackground(String... params) {
+
             return showTouTiao(params[0]);
         }
 
@@ -93,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(touTiaos);
             TouTiaoAdapter adapter=new TouTiaoAdapter(MainActivity.this,touTiaos,lvTouTiao);
             lvTouTiao.setAdapter(adapter);
+            swipeRefresh.setRefreshing(false);
             lvTouTiao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
         }
     }
 
