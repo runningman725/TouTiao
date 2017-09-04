@@ -12,6 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".WebTouTiaoActivity"
+            android:label="@string/title_activity_web_show" />
+        <activity android:name=".ViewPagerActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +32,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WebShowActivity"
-            android:label="@string/title_activity_web_show"></activity>
+            android:name=".ScienceActivity"
+            android:label="@string/title_activity_science"></activity>
+        <activity android:name=".WebScienceActivity"
+            android:label="@string/title_activity_web_science"></activity>
     </application>
 
 </manifest>

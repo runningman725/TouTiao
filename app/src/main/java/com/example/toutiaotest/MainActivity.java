@@ -5,9 +5,7 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
+//显示头条的Activity
 public class MainActivity extends AppCompatActivity {
 
     public String Url = "http://v.juhe.cn/toutiao/index?type=top&key=30af0fb406d2655e39d3ff8a119368eb";
@@ -39,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         new TouTiaoAsyncTask().execute(Url);
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        //刷新界面事件
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        final List<TouTiao> touTiaos=showTouTiao(Url);
+                        final List<TouTiao> touTiaos=getJsonData(Url);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -60,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
-    private List<TouTiao> showTouTiao(String param) {
+
+    //通过url获取头条的数据
+    private List<TouTiao> getJsonData(String param) {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(param).openConnection();
             InputStream is = connection.getInputStream();
@@ -92,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     toutiao.toutiaoWebUrl = jsonObject.getString("url");
 //                    Log.d("TAG", "showImg"+toutiao.toutiaoImgUrl);
                     touTiaoList.add(toutiao);
+
                 }
                 return touTiaoList;
             }else {
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected List<TouTiao> doInBackground(String... params) {
 
-            return showTouTiao(params[0]);
+            return getJsonData(params[0]);
         }
 
         @Override
@@ -121,12 +120,13 @@ public class MainActivity extends AppCompatActivity {
             TouTiaoAdapter adapter=new TouTiaoAdapter(MainActivity.this,touTiaos,lvTouTiao);
             lvTouTiao.setAdapter(adapter);
             swipeRefresh.setRefreshing(false);
+            //给头条每一项添加点击事件
             lvTouTiao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String toutiao=touTiaos.get(position).toutiaoWebUrl;
 //                    Toast.makeText(MainActivity.this,toutiao,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,WebShowActivity.class);
+                    Intent intent = new Intent(MainActivity.this,WebTouTiaoActivity.class);
                     intent.putExtra("url", toutiao);
                     startActivity(intent);
                 }

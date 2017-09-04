@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.toutiaotest.WebShowActivity">
+    android:layout_margin="10dp"
+    tools:context="com.example.toutiaotest.ScienceActivity">
 
-    <WebView
-        android:id="@+id/web_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+   <ListView
+       android:id="@+id/lv_science"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
 
-</LinearLayout>
+</RelativeLayout>

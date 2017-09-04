@@ -33,6 +33,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
         for (int i = 0; i <URLS.length ; i++) {
             URLS[i] = touTiaos.get(i).toutiaoImgUrl;
         }
+        //给listview添加滑动事件
         lvTouTiao.setOnScrollListener(this);
         mFirstIn=true;
     }
@@ -74,6 +75,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
         return convertView;
     }
 
+    //界面滑动，加载图片
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if(scrollState==SCROLL_STATE_IDLE){
@@ -89,6 +91,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         mStart=firstVisibleItem;
         mEnd=firstVisibleItem+visibleItemCount;
+        //当画面第一次加载并显示item时，加载所见列表项目
         if(mFirstIn && visibleItemCount>0){
             mImageLoader.loadImages(mStart,mEnd);
             mFirstIn = false;

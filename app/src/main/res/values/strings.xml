@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TouTiaoTest</string>
-    <string name="title_activity_web_show">WebShowActivity</string>
+    <string name="title_activity_web_show">WebTouTiaoActivity</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
+    <string name="title_activity_science">ScienceActivity</string>
+    <string name="title_activity_web_science">WebScienceActivity</string>
 </resources>
