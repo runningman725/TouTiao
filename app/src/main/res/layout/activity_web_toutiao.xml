@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.toutiaotest.WebTouTiaoActivity">
+    tools:context="com.example.toutiaotest.activity.WebTouTiaoActivity">
 
     <WebView
         android:id="@+id/web_view"

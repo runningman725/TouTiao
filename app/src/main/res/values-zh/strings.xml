@@ -1,6 +1,14 @@
 <resources>
-    <string name="app_name">头条新闻</string>
+    <string name="app_name">简易新闻</string>
+    <string name="title_activity_toutiao">头条综合</string>
     <string name="title_activity_web_show">详情</string>
     <string name="title_activity_science">科技要问</string>
     <string name="title_activity_web_science">详情</string>
+    <string name="title_activity_view_pager">精简新闻</string>
+    <string name="title_activity_sport">体育要问</string>
+    <string name="title_activity_web_sport">详情</string>
+    <string name="title_activity_guoji">国际要问</string>
+    <string name="title_activity_web_guoji">详情</string>
+    <string name="title_activity_finance">财经新闻</string>
+    <string name="title_activity_web_finance">详情</string>
 </resources>

@@ -6,11 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context="com.example.toutiaotest.ScienceActivity">
+    tools:context="com.example.toutiaotest.activity.ScienceActivity">
 
-   <ListView
-       android:id="@+id/lv_science"
+   <android.support.v4.widget.SwipeRefreshLayout
+       android:id="@+id/swipe_refresh_science"
        android:layout_width="match_parent"
-       android:layout_height="match_parent" />
+       android:layout_height="match_parent">
+
+      <ListView
+          android:id="@+id/lv_science"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+   </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </RelativeLayout>

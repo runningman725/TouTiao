@@ -1,20 +1,22 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.LruCache;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
+import com.example.toutiaotest.R;
+import com.example.toutiaotest.adapter.FinanceAdapter;
+import com.example.toutiaotest.adapter.GuoJiAdapter;
+import com.example.toutiaotest.adapter.ScienceAdapter;
+import com.example.toutiaotest.adapter.SportAdapter;
+import com.example.toutiaotest.adapter.TouTiaoAdapter;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
@@ -28,7 +30,7 @@ public class ImageLoader {
 
     private LruCache<String,Bitmap> mCaches;
     private ListView mListView;
-    private Set<TouTiaoImageAsyncTask> mTask;
+    private Set<NewsImageAsyncTask> mTask;
 
     public ImageLoader(ListView listview){
         int maxMemory = (int) Runtime.getRuntime().maxMemory();
@@ -79,7 +81,7 @@ public class ImageLoader {
 
             //如果缓存中没有bitmap对象就通过AsyncTask异步加载
             if(bitmap==null){
-                TouTiaoImageAsyncTask task = new TouTiaoImageAsyncTask(url);
+                NewsImageAsyncTask task = new NewsImageAsyncTask(url);
                 task.execute(url);
                 mTask.add(task);
             }else {
@@ -100,42 +102,86 @@ public class ImageLoader {
         for (int i = start; i <end ; i++) {
             String url = ScienceAdapter.URLS[i];
             Bitmap bitmap = getBitmapFromCache(url);
-//            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-//            String bmString=sp.getString("bitmapString", "");
-//            String url1 = sp.getString("url", "");
+
             if(bitmap==null){
-                TouTiaoImageAsyncTask task = new TouTiaoImageAsyncTask(url);
+                NewsImageAsyncTask task = new NewsImageAsyncTask(url);
                 task.execute(url);
                 mTask.add(task);
             }else {
                 ImageView ivTitle = (ImageView) mListView.findViewWithTag(url);
                 ivTitle.setImageBitmap(bitmap);
             }
-//            if(bmString!=null){
-//                ByteArrayInputStream bis = new ByteArrayInputStream(bmString.getBytes());
-//                Bitmap bm = BitmapFactory.decodeStream(bis);
-//                ImageView ivTitle1 = (ImageView) mListView.findViewWithTag(url1);
-//                ivTitle1.setImageBitmap(bm);
-//            }
+
+        }
+    }
+    //获取体育新闻相应URL的集合的图片
+    public void loadSportImages(int start, int end) {
+        for (int i = start; i <end ; i++) {
+            String url = SportAdapter.URLS[i];
+            Bitmap bitmap = getBitmapFromCache(url);
+
+            if(bitmap==null){
+                NewsImageAsyncTask task = new NewsImageAsyncTask(url);
+                task.execute(url);
+                mTask.add(task);
+            }else {
+                ImageView ivTitle = (ImageView) mListView.findViewWithTag(url);
+                ivTitle.setImageBitmap(bitmap);
+            }
+
+        }
+    }
+    //获取国际新闻相应URL的集合的图片
+    public void loadGuoJiImages(int start, int end) {
+        for (int i = start; i <end ; i++) {
+            String url = GuoJiAdapter.URLS[i];
+            Bitmap bitmap = getBitmapFromCache(url);
+
+            if(bitmap==null){
+                NewsImageAsyncTask task = new NewsImageAsyncTask(url);
+                task.execute(url);
+                mTask.add(task);
+            }else {
+                ImageView ivTitle = (ImageView) mListView.findViewWithTag(url);
+                ivTitle.setImageBitmap(bitmap);
+            }
+
+        }
+    }
+    //获取财经新闻相应URL的集合的图片
+    public void loadFinanceImages(int start, int end) {
+        for (int i = start; i <end ; i++) {
+            String url = FinanceAdapter.URLS[i];
+            Bitmap bitmap = getBitmapFromCache(url);
+
+            if(bitmap==null){
+                NewsImageAsyncTask task = new NewsImageAsyncTask(url);
+                task.execute(url);
+                mTask.add(task);
+            }else {
+                ImageView ivTitle = (ImageView) mListView.findViewWithTag(url);
+                ivTitle.setImageBitmap(bitmap);
+            }
+
         }
     }
 
     //URL集合加载完了，取消异步加载
     public void cancelAllTasks() {
         if(mTask!=null){
-            for (TouTiaoImageAsyncTask task : mTask) {
+            for (NewsImageAsyncTask task : mTask) {
                 task.cancel(false);
             }
         }
     }
 
-    private class TouTiaoImageAsyncTask extends AsyncTask<String,Void,Bitmap>{
+    private class NewsImageAsyncTask extends AsyncTask<String,Void,Bitmap>{
 
 //        private ImageView mImageView;
         private String mUrl;
         private Context mActivity;
 
-        public TouTiaoImageAsyncTask(String url) {
+        public NewsImageAsyncTask(String url) {
 //            mImageView = ivTitle;
             mUrl = url;
         }

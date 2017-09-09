@@ -1,7 +1,14 @@
 <resources>
-    <string name="app_name">TouTiaoTest</string>
+    <string name="app_name">EasyNews</string>
+    <string name="title_activity_toutiao">TouTiaoActivity</string>
     <string name="title_activity_web_show">WebTouTiaoActivity</string>
     <string name="title_activity_view_pager">ViewPagerActivity</string>
     <string name="title_activity_science">ScienceActivity</string>
     <string name="title_activity_web_science">WebScienceActivity</string>
+    <string name="title_activity_scport">SportActivity</string>
+    <string name="title_activity_web_sport">WebSportActivity</string>
+    <string name="title_activity_guoji">GuoJiActivity</string>
+    <string name="title_activity_web_guoji">WebGuoJiActivity</string>
+    <string name="title_activity_finance">FinanceActivity</string>
+    <string name="title_activity_web_finance">WebFinanceActivity</string>
 </resources>

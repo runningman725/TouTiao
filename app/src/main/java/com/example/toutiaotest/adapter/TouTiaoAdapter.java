@@ -1,4 +1,4 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.toutiaotest.R;
+import com.example.toutiaotest.activity.MainActivity;
+import com.example.toutiaotest.db.TouTiao;
+import com.example.toutiaotest.util.ImageLoader;
 
 import java.util.List;
 

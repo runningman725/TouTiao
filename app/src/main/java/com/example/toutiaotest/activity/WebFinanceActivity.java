@@ -1,42 +1,38 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
+
+import com.example.toutiaotest.R;
 
 /**
- * Created by Admin on 2017/9/3.
+ * Created by Admin on 2017/9/9.
  */
 
-public class WebScienceActivity extends AppCompatActivity{
-
+public class WebFinanceActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_science);
+        setContentView(R.layout.activity_web_finance);
         //使用webview显示画面
-        showWebScience();
+        showWebContent();
+
     }
 
-    private void showWebScience() {
+    private void showWebContent() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Intent intent=getIntent();
-                String url=intent.getStringExtra("url");
-                WebView webView = (WebView) findViewById(R.id.web_view_science);
+                String url=intent.getStringExtra("fiurl");
+                WebView webView = (WebView) findViewById(R.id.web_view_finance);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.setWebViewClient(new WebViewClient());
                 webView.loadUrl(url);
             }
         });
-
     }
 }

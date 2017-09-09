@@ -1,4 +1,4 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;

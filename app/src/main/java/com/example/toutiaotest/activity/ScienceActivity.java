@@ -1,17 +1,20 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.toutiaotest.R;
+import com.example.toutiaotest.adapter.ScienceAdapter;
+import com.example.toutiaotest.db.Science;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +33,7 @@ public class ScienceActivity extends AppCompatActivity {
 
     private String URL = "http://v.juhe.cn/toutiao/index?type=keji&key=30af0fb406d2655e39d3ff8a119368eb";
     private ListView listView;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,28 @@ public class ScienceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_science);
         listView = (ListView) findViewById(R.id.lv_science);
         new ScienceAsyncTask().execute(URL);
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_science);
+        swipeRefresh.setColorSchemeColors(Color.BLUE);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final List<Science> sciences = getJsonData(URL);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ScienceAdapter scienceAdapter = new ScienceAdapter(ScienceActivity.this,sciences,listView);
+                                listView.setAdapter(scienceAdapter);
+                                swipeRefresh.setRefreshing(false);
+                            }
+                        });
+
+                    }
+                }).start();
+            }
+        });
 
     }
 
@@ -101,12 +127,13 @@ public class ScienceActivity extends AppCompatActivity {
             super.onPostExecute(sciences);
             ScienceAdapter scienceAdapter = new ScienceAdapter(ScienceActivity.this,sciences,listView);
             listView.setAdapter(scienceAdapter);
+            swipeRefresh.setRefreshing(false);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String scienceUrl = sciences.get(position).scienceWebUrl;
                     Intent intent = new Intent(ScienceActivity.this, WebScienceActivity.class);
-                    intent.putExtra("url",scienceUrl);
+                    intent.putExtra("scurl",scienceUrl);
                     Log.d("TAG", "onItemClick: "+scienceUrl);
                     startActivity(intent);
                 }

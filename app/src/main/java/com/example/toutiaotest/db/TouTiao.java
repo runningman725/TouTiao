@@ -1,4 +1,4 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.db;
 
 /**
  * Created by Admin on 2017/8/14.

@@ -5,28 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
-    <TextView
-        android:id="@+id/tv_tab0"
+    <ImageView
+        android:id="@+id/iv_tab0"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="头条"
-        android:gravity="center"
-        android:textSize="20sp"/>
+        android:src="@drawable/ic_toutiao_black"
+        android:scaleType="centerInside"/>
     <!--<ImageView-->
         <!--android:layout_width="2dp"-->
         <!--android:layout_height="match_parent"-->
         <!--android:background="#aaa"/>-->
-    <TextView
-        android:id="@+id/tv_tab1"
+    <ImageView
+        android:id="@+id/iv_tab1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
-        android:text="科技"
-        android:textSize="20sp" />
-
-
+        android:src="@drawable/ic_science_black"
+        android:scaleType="centerInside"/>
+    <ImageView
+        android:id="@+id/iv_tab2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_sport_black"
+        android:scaleType="centerInside"/>
+    <ImageView
+        android:id="@+id/iv_tab3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_guoji_black"
+        android:scaleType="centerInside"/>
+    <ImageView
+        android:id="@+id/iv_tab4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_finance_black"
+        android:scaleType="centerInside"/>
 
 
 </LinearLayout>

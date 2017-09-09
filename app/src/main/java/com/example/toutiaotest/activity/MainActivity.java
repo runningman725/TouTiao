@@ -1,4 +1,4 @@
-package com.example.toutiaotest;
+package com.example.toutiaotest.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.toutiaotest.R;
+import com.example.toutiaotest.db.TouTiao;
+import com.example.toutiaotest.adapter.TouTiaoAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     String toutiao=touTiaos.get(position).toutiaoWebUrl;
 //                    Toast.makeText(MainActivity.this,toutiao,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,WebTouTiaoActivity.class);
-                    intent.putExtra("url", toutiao);
+                    intent.putExtra("tturl", toutiao);
                     startActivity(intent);
                 }
             });
