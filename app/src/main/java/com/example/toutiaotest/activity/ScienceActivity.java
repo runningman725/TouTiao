@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,9 @@ public class ScienceActivity extends AppCompatActivity {
     private List<Science> getJsonData(String url) {
         try {
             List<Science> scienceList=new ArrayList<>();
-            String jsonString = readJSON(new URL(url).openStream());
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            InputStream is=connection.getInputStream();
+            String jsonString = readJSON(is);
             JSONObject jsonObject = new JSONObject(jsonString);
             String obj1 = jsonObject.getString("reason");
             Science science;
@@ -91,6 +94,7 @@ public class ScienceActivity extends AppCompatActivity {
             }else{
                 Toast.makeText(ScienceActivity.this, "数据返回失败", Toast.LENGTH_SHORT).show();
             }
+            connection.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -100,11 +104,12 @@ public class ScienceActivity extends AppCompatActivity {
     }
 
     private String readJSON(InputStream inputStream) {
-        String line = "";
+        String line;
         String result = "";
+        BufferedReader br=null;
         try {
             InputStreamReader isr = new InputStreamReader(inputStream, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
+            br = new BufferedReader(isr);
             while ((line=br.readLine())!=null){
                 result += line;
             }
@@ -112,6 +117,14 @@ public class ScienceActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            if(br!=null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return result;
     }
@@ -132,8 +145,10 @@ public class ScienceActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String scienceUrl = sciences.get(position).scienceWebUrl;
+                    String scienceTitle = sciences.get(position).scienceTitle;
                     Intent intent = new Intent(ScienceActivity.this, WebScienceActivity.class);
                     intent.putExtra("scurl",scienceUrl);
+                    intent.putExtra("scTitle", scienceTitle);
                     Log.d("TAG", "onItemClick: "+scienceUrl);
                     startActivity(intent);
                 }

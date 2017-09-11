@@ -76,9 +76,9 @@ public class FinanceAdapter extends BaseAdapter implements AbsListView.OnScrollL
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        FinanceAdapter.ViewHolder viewHolder =null;
+        ViewHolder viewHolder;
         if(convertView==null){
-            viewHolder = new FinanceAdapter.ViewHolder();
+            viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.finance_item_layout, parent, false);
             viewHolder.tvFinanceTitle = (TextView) convertView.findViewById(R.id.finance_title);
             viewHolder.tvFinanceDate = (TextView) convertView.findViewById(R.id.finance_date);

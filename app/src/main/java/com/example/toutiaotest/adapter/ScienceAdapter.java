@@ -58,7 +58,7 @@ public class ScienceAdapter extends BaseAdapter implements AbsListView.OnScrollL
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder =null;
+        ViewHolder viewHolder;
         if(convertView==null){
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.science_item_layout, parent, false);

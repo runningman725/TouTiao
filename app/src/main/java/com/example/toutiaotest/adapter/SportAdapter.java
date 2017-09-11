@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.toutiaotest.R;
-import com.example.toutiaotest.activity.ScienceActivity;
 import com.example.toutiaotest.activity.SportActivity;
 import com.example.toutiaotest.db.Sport;
 import com.example.toutiaotest.util.ImageLoader;
@@ -77,7 +76,7 @@ public class SportAdapter extends BaseAdapter implements AbsListView.OnScrollLis
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder =null;
+        ViewHolder viewHolder;
         if(convertView==null){
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.sport_item_layout, parent, false);

@@ -67,13 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
     //通过url获取头条的数据
     private List<TouTiao> getJsonData(String param) {
+        InputStream is = null;
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(param).openConnection();
-            InputStream is = connection.getInputStream();
+            is = connection.getInputStream();
             InputStreamReader isr = new InputStreamReader(is,"utf-8");
             BufferedReader br = new BufferedReader(isr);
             String result = "";
-            String line = "";
+            String line;
             while((line=br.readLine())!=null){
                 result += line;
             }
@@ -106,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        }finally {
+            if(is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
@@ -129,9 +138,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String toutiao=touTiaos.get(position).toutiaoWebUrl;
+                    String toutiaoTitle=touTiaos.get(position).toutiaoTitle;
 //                    Toast.makeText(MainActivity.this,toutiao,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,WebTouTiaoActivity.class);
                     intent.putExtra("tturl", toutiao);
+                    intent.putExtra("ttTitle", toutiaoTitle);
                     startActivity(intent);
                 }
             });

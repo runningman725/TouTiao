@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 
 public class FinanceActivity extends AppCompatActivity{
-    private String URL = "http://v.juhe.cn/toutiao/index?type=Finance&key=30af0fb406d2655e39d3ff8a119368eb";
+    private String URL = "http://v.juhe.cn/toutiao/index?type=caijing&key=30af0fb406d2655e39d3ff8a119368eb";
     private ListView listView;
     private SwipeRefreshLayout swipeRefresh;
 
@@ -73,7 +74,9 @@ public class FinanceActivity extends AppCompatActivity{
     private List<Finance> getJsonData(String url) {
         try {
             List<Finance> financeList=new ArrayList<>();
-            String jsonString = readJSON(new URL(url).openStream());
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            InputStream is = connection.getInputStream();
+            String jsonString = readJSON(is);
             JSONObject jsonObject = new JSONObject(jsonString);
             String obj1 = jsonObject.getString("reason");
             Finance finance;
@@ -94,6 +97,7 @@ public class FinanceActivity extends AppCompatActivity{
             }else{
                 Toast.makeText(FinanceActivity.this, "数据返回失败", Toast.LENGTH_SHORT).show();
             }
+            connection.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -103,18 +107,28 @@ public class FinanceActivity extends AppCompatActivity{
     }
 
     private String readJSON(InputStream inputStream) {
-        String line = "";
+        String line;
         String result = "";
+        BufferedReader br = null;
         try {
             InputStreamReader isr = new InputStreamReader(inputStream, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
+            br = new BufferedReader(isr);
             while ((line=br.readLine())!=null){
                 result += line;
             }
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            if(br!=null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return result;
     }
@@ -134,10 +148,12 @@ public class FinanceActivity extends AppCompatActivity{
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String FinanceUrl = finances.get(position).financeWebUrl;
+                    String financeUrl = finances.get(position).financeWebUrl;
+                    String financeTitle = finances.get(position).financeTitle;
                     Intent intent = new Intent(FinanceActivity.this, WebFinanceActivity.class);
-                    intent.putExtra("fiurl",FinanceUrl);
-                    Log.d("TAG", "onItemClick: "+FinanceUrl);
+                    intent.putExtra("fiurl",financeUrl);
+                    intent.putExtra("fiTitle", financeTitle);
+                    Log.d("TAG", "onItemClick: "+financeUrl);
                     startActivity(intent);
                 }
             });

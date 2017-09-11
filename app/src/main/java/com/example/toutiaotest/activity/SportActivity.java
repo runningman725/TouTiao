@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,9 @@ public class SportActivity extends AppCompatActivity{
     private List<Sport> getJsonData(String url) {
         try {
             List<Sport> sportList=new ArrayList<>();
-            String jsonString = readJSON(new URL(url).openStream());
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            InputStream is=connection.getInputStream();
+            String jsonString = readJSON(is);
             JSONObject jsonObject = new JSONObject(jsonString);
             String obj1 = jsonObject.getString("reason");
             Sport sport;
@@ -94,6 +97,7 @@ public class SportActivity extends AppCompatActivity{
             }else{
                 Toast.makeText(SportActivity.this, "数据返回失败", Toast.LENGTH_SHORT).show();
             }
+            connection.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -103,11 +107,12 @@ public class SportActivity extends AppCompatActivity{
     }
 
     private String readJSON(InputStream inputStream) {
-        String line = "";
+        String line;
         String result = "";
+        BufferedReader br=null;
         try {
             InputStreamReader isr = new InputStreamReader(inputStream, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
+            br = new BufferedReader(isr);
             while ((line=br.readLine())!=null){
                 result += line;
             }
@@ -115,6 +120,14 @@ public class SportActivity extends AppCompatActivity{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            if(br!=null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return result;
     }
@@ -135,8 +148,10 @@ public class SportActivity extends AppCompatActivity{
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String sportUrl = sports.get(position).sportWebUrl;
+                    String sportTitle = sports.get(position).sportTitle;
                     Intent intent = new Intent(SportActivity.this, WebSportActivity.class);
                     intent.putExtra("spurl", sportUrl);
+                    intent.putExtra("spTitle", sportTitle);
                     Log.d("TAG", "onItemClick: " + sportUrl);
                     startActivity(intent);
                 }

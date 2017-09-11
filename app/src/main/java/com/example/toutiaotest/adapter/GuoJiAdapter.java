@@ -76,7 +76,7 @@ public class GuoJiAdapter extends BaseAdapter implements AbsListView.OnScrollLis
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder =null;
+        ViewHolder viewHolder;
         if(convertView==null){
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.guoji_item_layout, parent, false);
