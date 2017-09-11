@@ -139,10 +139,12 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String toutiao=touTiaos.get(position).toutiaoWebUrl;
                     String toutiaoTitle=touTiaos.get(position).toutiaoTitle;
+                    String toutiaoImg=touTiaos.get(position).toutiaoImgUrl;
 //                    Toast.makeText(MainActivity.this,toutiao,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,WebTouTiaoActivity.class);
                     intent.putExtra("tturl", toutiao);
                     intent.putExtra("ttTitle", toutiaoTitle);
+                    intent.putExtra("ttImage", toutiaoImg);
                     startActivity(intent);
                 }
             });

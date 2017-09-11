@@ -32,6 +32,10 @@ public class ImageLoader {
     private ListView mListView;
     private Set<NewsImageAsyncTask> mTask;
 
+    public ImageLoader(){
+
+    }
+
     public ImageLoader(ListView listview){
         int maxMemory = (int) Runtime.getRuntime().maxMemory();
         int cacheSize = maxMemory / 4;
@@ -62,7 +66,7 @@ public class ImageLoader {
         //查看缓存中的图片
         Bitmap bitmap = getBitmapFromCache(url);
         if(bitmap==null){
-//            new TouTiaoImageAsyncTask(ivTitle,url).execute(url);
+//            new NewsImageAsyncTask(ivTitle,url).execute(url);
             //如果缓存中没有图片，就加载ic_launcher，把图片加载事件从getView()转移成滑动添加图片事件
             ivTitle.setImageResource(R.mipmap.ic_launcher);
         }else{

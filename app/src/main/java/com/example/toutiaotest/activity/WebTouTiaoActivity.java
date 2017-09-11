@@ -1,6 +1,7 @@
 package com.example.toutiaotest.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.example.toutiaotest.R;
+import com.example.toutiaotest.util.ImageLoader;
+
+import java.io.IOException;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -19,6 +23,8 @@ public class WebTouTiaoActivity extends AppCompatActivity {
 
     private String toutiaoTitle;
     private String url;
+    private String toutiaoImg;
+    private Bitmap bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,22 @@ public class WebTouTiaoActivity extends AppCompatActivity {
         //使用webview显示画面
         showWebContent();
         toutiaoTitle = getIntent().getStringExtra("ttTitle");
+        toutiaoImg = getIntent().getStringExtra("ttImage");
+        getBitmapFromUrl(toutiaoImg);
+    }
+
+    private void getBitmapFromUrl(final String toutiaoImg) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ImageLoader loader = new ImageLoader();
+                try {
+                    bm=loader.getBitmapFromUrl(toutiaoImg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 
@@ -74,9 +96,10 @@ public class WebTouTiaoActivity extends AppCompatActivity {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
 //        oks.setTitleUrl("http://sharesdk.cn");
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(toutiaoTitle+""+url);
+        oks.setText(toutiaoTitle+"\n"+url);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+//        oks.setImageUrl(toutiaoImg);
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(url);
         Log.d("TAG", url);

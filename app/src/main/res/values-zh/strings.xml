@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">简易新闻</string>
+    <string name="app_name">易新闻</string>
     <string name="title_activity_toutiao">头条综合</string>
     <string name="title_activity_web_show">详情</string>
     <string name="title_activity_science">科技要问</string>
