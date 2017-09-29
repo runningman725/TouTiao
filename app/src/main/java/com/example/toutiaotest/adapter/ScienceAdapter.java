@@ -72,7 +72,7 @@ public class ScienceAdapter extends BaseAdapter implements AbsListView.OnScrollL
         }
         viewHolder.tvScienceTitle.setText(mScienceList.get(position).scienceTitle);
         viewHolder.tvSciencDate.setText(mScienceList.get(position).scienceDate);
-        viewHolder.tvSciencAuthor.setText("By:"+mScienceList.get(position).scienceAuthorName);
+        viewHolder.tvSciencAuthor.setText(mScienceList.get(position).scienceAuthorName);
 //        viewHolder.ivScienceImgUrl.setImageResource(R.mipmap.ic_launcher);
         String url = mScienceList.get(position).scienceImgUrl;
         viewHolder.ivScienceImgUrl.setTag(url);

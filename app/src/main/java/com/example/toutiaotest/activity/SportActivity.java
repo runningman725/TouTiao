@@ -79,7 +79,7 @@ public class SportActivity extends AppCompatActivity{
             String jsonString = readJSON(is);
             JSONObject jsonObject = new JSONObject(jsonString);
             String obj1 = jsonObject.getString("reason");
-            Sport sport;
+            Sport sport=null;
             if ("成功的返回".equals(obj1)){
                 JSONObject object = jsonObject.getJSONObject("result");
                 JSONArray ary = object.getJSONArray("data");

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.toutiaotest.R;
 import com.example.toutiaotest.db.TouTiao;
 import com.example.toutiaotest.adapter.TouTiaoAdapter;
+import com.mob.tools.RxMob;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     toutiao.toutiaoDate = jsonObject.getString("date");
                     toutiao.toutiaoImgUrl = jsonObject.getString("thumbnail_pic_s");
                     toutiao.toutiaoWebUrl = jsonObject.getString("url");
+                    toutiao.toutiaoAuthor = jsonObject.getString("author_name");
 //                    Log.d("TAG", "showImg"+toutiao.toutiaoImgUrl);
                     touTiaoList.add(toutiao);
 

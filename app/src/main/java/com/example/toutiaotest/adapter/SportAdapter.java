@@ -90,7 +90,7 @@ public class SportAdapter extends BaseAdapter implements AbsListView.OnScrollLis
         }
         viewHolder.tvSportTitle.setText(mSportList.get(position).sportTitle);
         viewHolder.tvSportDate.setText(mSportList.get(position).sportDate);
-        viewHolder.tvSportAuthor.setText("By:"+mSportList.get(position).sportAuthorName);
+        viewHolder.tvSportAuthor.setText(mSportList.get(position).sportAuthorName);
 //        viewHolder.ivScienceImgUrl.setImageResource(R.mipmap.ic_launcher);
         String url = mSportList.get(position).sportImgUrl;
         viewHolder.ivSportImgUrl.setTag(url);

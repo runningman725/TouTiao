@@ -9,4 +9,5 @@ public class TouTiao {
     public String toutiaoDate;
     public String toutiaoImgUrl;
     public String toutiaoWebUrl;
+    public String toutiaoAuthor;
 }

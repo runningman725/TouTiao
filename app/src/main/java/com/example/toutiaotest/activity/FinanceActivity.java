@@ -44,7 +44,7 @@ public class FinanceActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance);
         listView = (ListView) findViewById(R.id.lv_finance);
-        new FinanceActivity.FinanceAsyncTask().execute(URL);
+        new FinanceAsyncTask().execute(URL);
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_finance);
         swipeRefresh.setColorSchemeColors(Color.BLUE);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

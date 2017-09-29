@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.toutiaotest.R;
 import com.example.toutiaotest.adapter.GuoJiAdapter;
 import com.example.toutiaotest.db.GuoJi;
+import com.mob.tools.RxMob;
 
 import org.json.JSONArray;
 import org.json.JSONException;

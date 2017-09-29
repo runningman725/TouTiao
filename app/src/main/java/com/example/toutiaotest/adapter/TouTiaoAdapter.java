@@ -66,6 +66,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.title_text);
             viewHolder.tvDate = (TextView) convertView.findViewById(R.id.date_text);
             viewHolder.ivTitle = (ImageView) convertView.findViewById(R.id.image_title);
+            viewHolder.tvAuthor = (TextView) convertView.findViewById(R.id.author_text);
             convertView.setTag(viewHolder);
 
         }else{
@@ -73,6 +74,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
         }
         viewHolder.tvTitle.setText(mTouTiao.get(position).toutiaoTitle);
         viewHolder.tvDate.setText(mTouTiao.get(position).toutiaoDate);
+        viewHolder.tvAuthor.setText(mTouTiao.get(position).toutiaoAuthor);
 //        viewHolder.ivTitle.setImageResource(R.mipmap.ic_launcher);
         String url=mTouTiao.get(position).toutiaoImgUrl;
         viewHolder.ivTitle.setTag(url);
@@ -104,7 +106,7 @@ public class TouTiaoAdapter extends BaseAdapter implements AbsListView.OnScrollL
     }
 
     class ViewHolder{
-        public TextView tvTitle,tvDate;
+        public TextView tvTitle,tvDate,tvAuthor;
         public ImageView ivTitle;
     }
 }

@@ -90,4 +90,10 @@ public class WebFinanceActivity extends AppCompatActivity{
         // 启动分享GUI
         oks.show(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

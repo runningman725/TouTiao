@@ -90,7 +90,7 @@ public class GuoJiAdapter extends BaseAdapter implements AbsListView.OnScrollLis
         }
         viewHolder.tvGuoJiTitle.setText(mGuoJiList.get(position).guojiTitle);
         viewHolder.tvGuoJiDate.setText(mGuoJiList.get(position).guojiDate);
-        viewHolder.tvGuoJiAuthor.setText("By:"+mGuoJiList.get(position).guojiAuthorName);
+        viewHolder.tvGuoJiAuthor.setText(mGuoJiList.get(position).guojiAuthorName);
 //        viewHolder.ivScienceImgUrl.setImageResource(R.mipmap.ic_launcher);
         String url = mGuoJiList.get(position).guojiImgUrl;
         viewHolder.ivGuoJiImgUrl.setTag(url);

@@ -90,7 +90,7 @@ public class FinanceAdapter extends BaseAdapter implements AbsListView.OnScrollL
         }
         viewHolder.tvFinanceTitle.setText(mFinanceList.get(position).financeTitle);
         viewHolder.tvFinanceDate.setText(mFinanceList.get(position).financeDate);
-        viewHolder.tvFinanceAuthor.setText("By:"+mFinanceList.get(position).financeAuthorName);
+        viewHolder.tvFinanceAuthor.setText(mFinanceList.get(position).financeAuthorName);
 //        viewHolder.ivScienceImgUrl.setImageResource(R.mipmap.ic_launcher);
         String url = mFinanceList.get(position).financeImgUrl;
         viewHolder.ivFinanceImgUrl.setTag(url);
